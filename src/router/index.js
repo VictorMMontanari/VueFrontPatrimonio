@@ -1,28 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MenuView from '../views/MenuView.vue'
 import LoginView from '../views/LoginView.vue'
+import AboutView from '../views/AboutView.vue'
+/* import TeamView from '../views/TeamView.vue'
+import ContactView from '../views/ContactView.vue' */
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: LoginView
+      component: LoginView,
+      name: 'login', // Nome da rota para referência
     },
     {
-      path: '/MenuView',
-      name: 'menu',
-      component: MenuView
+      path: '/MenuView', // Remova 'View' do caminho para seguir as convenções
+      component: MenuView,
+      children: [
+        { path: '/about', component: AboutView },
+       /*  { path: 'team', component: TeamView },
+        { path: 'contact', component: ContactView }, */
+        // ... outras rotas
+      ],
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
   ]
 })
 
