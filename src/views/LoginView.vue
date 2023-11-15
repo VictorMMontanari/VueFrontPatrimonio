@@ -84,7 +84,7 @@ const onSubmit = handleSubmit((values) => {
 
 <style scoped>
 .invalid {
-  border: 2px solid red;
+  border: 2px solid rgba(240, 48, 48, 0.568);
   border-radius: 10px;
 }
 .user, .pass {

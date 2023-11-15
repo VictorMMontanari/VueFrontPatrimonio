@@ -4,10 +4,9 @@ import { ref } from 'vue';
 
 <template>
   <div class="main">
-    <RouterView></RouterView>
+    <router-view />
   </div>  
 </template>
 
 <style>
-
 </style>
