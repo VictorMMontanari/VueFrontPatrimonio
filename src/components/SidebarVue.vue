@@ -16,9 +16,9 @@
 				<span class="material-icons">{{ is_expanded ? 'home' : 'home' }}</span>
      			<span class="text">Home</span>
 			</router-link>
-			<router-link to="/" class="button">
-				<span class="material-icons">description</span>
-				<span class="text">About</span>
+			<router-link to="/patrimonio" class="button">
+				<span class="material-icons">article</span>
+				<span class="text">Patrimonio</span>
 			</router-link>
 			<router-link to="/team" class="button">
 				<span class="material-icons">group</span>
