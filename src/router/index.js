@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MenuView from '../views/MenuView.vue'
 import LoginView from '../views/LoginView.vue'
 import AboutView from '../views/AboutView.vue'
+import MainView from '../views/MainView.vue'
 /* import TeamView from '../views/TeamView.vue'
 import ContactView from '../views/ContactView.vue' */
 
@@ -17,6 +18,7 @@ const router = createRouter({
       path: '/MenuView', // Remova 'View' do caminho para seguir as convenções
       component: MenuView,
       children: [
+        { path: '/main', component: MainView},
         { path: '/about', component: AboutView },
        /*  { path: 'team', component: TeamView },
         { path: 'contact', component: ContactView }, */

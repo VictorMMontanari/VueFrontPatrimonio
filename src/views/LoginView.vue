@@ -36,7 +36,7 @@ const onSubmit = handleSubmit((values) => {
     resetForm();
 
     // Redirecione para a página desejada após a submissão do formulário
-    router.push('/MenuView'); // Substitua 'MenuView' pelo nome correto da sua rota
+    router.push('/main'); // Substitua 'MenuView' pelo nome correto da sua rota
   }
 })
 

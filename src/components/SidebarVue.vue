@@ -12,9 +12,9 @@
 
 		<h3>Menu</h3>
 		<div class="menu">
-			<router-link to="/about" class="button">
-				<span class="material-icons">home</span>
-				<span class="text">Home</span>
+			<router-link to="/main" class="button">
+				<span class="material-icons">{{ is_expanded ? 'home' : 'home' }}</span>
+     			<span class="text">Home</span>
 			</router-link>
 			<router-link to="/" class="button">
 				<span class="material-icons">description</span>
@@ -64,7 +64,7 @@ aside {
 
 	width: calc(2rem + 32px);
 	overflow: hidden;
-	min-height: 100vh;
+	min-height: 94.7vh;
 	padding: 1rem;
 
 	transition: 0.2s ease-in-out;
