@@ -1,3 +1,8 @@
+<script setup>
+  import NavbarVue from '../components/NavbarVue.vue';
+  import SidebarVue from '../components/SidebarVue.vue';
+</script>
+
 <template>
 	<div>
 	  <NavbarVue />
@@ -9,11 +14,6 @@
 	  </div>
 	</div>
   </template>
-  
-  <script setup>
-  import NavbarVue from '../components/NavbarVue.vue';
-  import SidebarVue from '../components/SidebarVue.vue';
-  </script>
   
   <style lang="scss" >
   :root {
