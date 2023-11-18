@@ -20,9 +20,9 @@
 				<span class="material-icons">article</span>
 				<span class="text">Patrimonio</span>
 			</router-link>
-			<router-link to="/team" class="button">
+			<router-link to="/user" class="button">
 				<span class="material-icons">group</span>
-				<span class="text">Team</span>
+				<span class="text">Usuario</span>
 			</router-link>
 			<router-link to="/contact" class="button">
 				<span class="material-icons">email</span>

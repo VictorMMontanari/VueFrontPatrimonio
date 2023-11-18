@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import MenuView from '../views/MenuView.vue';
 import LoginView from '../views/LoginView.vue';
-import AboutView from '../views/AboutView.vue';
+import UserView from '../views/UserView.vue';
 import MainView from '../views/MainView.vue';
 import PatrimonioView from '../views/PatrimonioView.vue';
 
@@ -20,7 +20,7 @@ const router = createRouter({
       children: [
         { path: '/main', component: MainView},
         { path: '/patrimonio', component: PatrimonioView},
-        { path: '/about', component: AboutView },
+        { path: '/user', component: UserView },
        /*  { path: 'team', component: TeamView },
         { path: 'contact', component: ContactView }, */
         // ... outras rotas
