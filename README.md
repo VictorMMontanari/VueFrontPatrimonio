@@ -10,6 +10,30 @@ Se um patrimônio não estiver cadastrado, o usuário deverá cadastrá-lo e eti
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
+## Paginas do Projeto
+
+### Login
+
+![Login](./src/assets/login.PNG)
+![Login_1](./src/assets/login1.PNG)
+
+### Sidebar
+
+![Sidebar](./src/assets/Sidebar.PNG)
+![Sidebar_1](./src/assets/Sidebar1.PNG)
+
+### Patrimônio
+
+![Patrimonio](./src/assets/CrudCadastroPatrimonio.PNG)
+
+### Usuário
+
+![Usuario](./src/assets/CrudCadastroUsuario.PNG)
+
+### Bloco
+
+![Bloco](./src/assets/CrudCadastroBloco.PNG)
+
 ## Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
@@ -32,3 +56,5 @@ npm run dev
 npm run build
 ```
 # VueFrontPatrimonio
+
+Esse projeto foi desenvolvido em Vue.js
