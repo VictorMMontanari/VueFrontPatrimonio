@@ -1,6 +1,10 @@
-# vuefrontpatrimonio
+# Front-end Projeto Controle Patrimonial
 
-This template should help get you started developing with Vue 3 in Vite.
+Neste projeto, desenvolvemos um software para o controle patrimonial de uma empresa, visando facilitar e agilizar o processo do balanço patrimonial.
+
+## Regras de Negócio
+
+Se um patrimônio não estiver cadastrado, o usuário deverá cadastrá-lo e etiquetá-lo. Além disso, o usuário deverá realizar o check-in de todos os patrimônios pelo menos uma vez por ano.
 
 ## Recommended IDE Setup
 
