@@ -4,6 +4,8 @@ import LoginView from '../views/LoginView.vue';
 import UserView from '../views/UserView.vue';
 import MainView from '../views/MainView.vue';
 import PatrimonioView from '../views/PatrimonioView.vue';
+import BlocoView from '../views/BlocoView.vue';
+import CheckView from '../views/CheckView.vue';
 
 
 const router = createRouter({
@@ -21,6 +23,8 @@ const router = createRouter({
         { path: '/main', component: MainView},
         { path: '/patrimonio', component: PatrimonioView},
         { path: '/user', component: UserView },
+        { path: '/bloco', component: BlocoView },
+        { path: '/check', component: CheckView },
        /*  { path: 'team', component: TeamView },
         { path: 'contact', component: ContactView }, */
         // ... outras rotas
