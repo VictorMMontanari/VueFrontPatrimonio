@@ -24,9 +24,13 @@
 				<span class="material-icons">group</span>
 				<span class="text">Usuario</span>
 			</router-link>
-			<router-link to="/contact" class="button">
-				<span class="material-icons">email</span>
-				<span class="text">Contact</span>
+			<router-link to="/bloco" class="button">
+				<span class="material-icons">add_home_work</span>
+				<span class="text">Bloco</span>
+			</router-link>
+			<router-link to="/check" class="button">
+				<span class="material-icons">fact_check</span>
+				<span class="text">Check-in</span>
 			</router-link>
 		</div>
 
