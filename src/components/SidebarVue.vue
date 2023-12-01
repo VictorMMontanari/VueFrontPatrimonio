@@ -1,7 +1,7 @@
 <template>
 	<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
 		<div class="logo">
-			<img :src="logoURL" alt="Vue" /> 
+			<img :src="LogoPng" alt="Vue" style="width: 6rem;"/> 
 		</div>
 
 		<div class="menu-toggle-wrap">
@@ -47,7 +47,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import logoURL from '../assets/logo.png'
+import LogoPng from '../assets/LogoPng.png'
 
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 
