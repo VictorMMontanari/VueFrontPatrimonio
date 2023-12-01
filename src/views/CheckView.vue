@@ -1,6 +1,6 @@
 <script setup>
-import ContainerVue from '../components/ContairnerVue.vue';
 import CheckInVue from '../components/CheckInVue.vue';
+import ContainerVue from '../components/ContairnerVue.vue';
 
 </script>
 

@@ -1,81 +1,38 @@
 <template>
-    <DataTable :value="nodes">
+    <DataTable :value="nodes" v-model:selection="selectedProduct">
         <Toolbar class="mb-4">
             <template #start>
-                <Button label="New" icon="pi pi-plus" severity="success" class="mr-2" @click="newProductDialog = true" />
+                <Button label="Gerar Registro Anual" icon="pi pi-plus" severity="success" class="mr-2" @click="newProductDialog = true" />
 
             </template>
         </Toolbar>
         <template #header>
-            <div class="text-xl font-bold">Pagina usuario</div>
+            <div class="text-xl font-bold">Pagina Patrimonio</div>
         </template>
-        <Column field="blocoId" header="Bloco Id"></Column>
+        <Column field="patrimonioId" header="Id Patrimonio"></Column>
+        <Column field="codigoBarra" header="Código de Barras"></Column>
+        <Column field="tipo" header="Tipo"></Column>
         <Column field="nome" header="Nome"></Column>
-        <Column field="ativo" header="Ativo"></Column>
+        <Column header="Status">
+            <!-- <template #body="slotProps">
+                <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data)" />
+            </template> -->
+        </Column>
+        <Column header="Check" selectionMode="single"></Column>
         <Column headerStyle="width: 10rem">
-            <template #body="slotProps">
-                <div class="flex flex-wrap gap-2">
-                    <Button type="button" icon="pi pi-pencil" rounded severity="success"
-                        @click="editProduct(slotProps.data)" />
-                    <Button type="button" icon="pi pi-trash" severity="danger" rounded
-                        @click="confirmDeleteProduct(slotProps.data)" />
-                </div>
-            </template>
+            
         </Column>
         <template #footer>
             <div class="flex justify-content-start">
-                <Button icon="pi pi-refresh" label="Reload" severity="warning" @click="reloadData" />
-            </div>
-        </template>
-        <Dialog v-model:visible="deleteProductDialog" :style="{ width: '450px' }" header="Confirm" :modal="true">
-            <div class="confirmation-content">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-                <span v-if="product">Are you sure you want to delete <b>{{ product.nome }}</b>?</span>
-            </div>
-            <template #footer>
-                <Button label="No" icon="pi pi-times" text @click="deleteProductDialog = false" />
-                <Button label="Yes" icon="pi pi-check" text @click="deleteProduct" />
-            </template>
-        </Dialog>
-        <Dialog v-model:visible="productDialog" :style="{ width: '450px' }" header="Product Details" :modal="true"
-            class="p-fluid">
-            <div class="confirmation-content" style="margin-top: 1.5rem;">
-                <div class="flex flex-column gap-2">
-                    <div class="flex gap-2">
-                        <span class="p-float-label">
-                            <InputText id="nome" v-model="product.nome" />
-                            <label for="nome">Nome</label>
-                        </span>
-                    </div>
+                <div style="display: flex;">
+                    <Button icon="pi pi-refresh" label="Reload" severity="warning" @click="reloadData" />
+                </div>
+                
+                <div style="display: flex; justify-content: right; width: 100%;">
+                    <Button icon="pi pi-save" label="Cadastrar Check-In" severity="success" @click="reloadData" />
                 </div>
             </div>
-            <template #footer>
-                <Button label="Cancel" icon="pi pi-times" text @click="hideDialog" />
-                <Button label="Save" icon="pi pi-check" text @click="saveProduct" />
-            </template>
-        </Dialog>
-
-        <Dialog v-model:visible="newProductDialog" :style="{ width: '450px' }" header="New Product" :modal="true"
-            class="p-fluid">
-            <div class="confirmation-content" style="margin-top: 1.5rem;">
-                <div class="flex flex-column gap-2">
-                    <div class="flex gap-2">
-                       
-
-                        <span class="p-float-label">
-                            <InputText id="newnome" v-model="newProduct.nome" />
-                            <label for="newnome">Nome</label>
-                        </span>
-                    </div>
-
-                 
-                </div>
-            </div>
-            <template #footer>
-                <Button label="Cancel" icon="pi pi-times" text @click="hideNewDialog" />
-                <Button label="Save" icon="pi pi-check" text @click="saveNewProduct" />
-            </template>
-        </Dialog>
+        </template> 
     </DataTable>
 </template>
   
@@ -84,19 +41,24 @@ import { ref, onMounted } from 'vue';
 
 const nodes = ref([]);
 const deleteProductDialog = ref(false);
+const selectedProduct = ref();
 const productDialog = ref(false);
 const newProductDialog = ref(false);
 const product = ref({
+    codigoBarra: '',
+    tipo: '',
     nome: '',
+    valor: null, // ou 0, dependendo do tipo esperado
+    notaFiscal: '',
     ativo: true, // ou false, dependendo do valor inicial correto do banco de dados
 });
 
 const getTreeTableNodes = () => {
-    return fetch('https://localhost:7038/api/Bloco')
+    return fetch('https://localhost:7038/api/Patrimonio')
         .then(response => response.json())
         .then(data => {
             console.log('Dados recebidos:', data);
-            return data.map(item => ({ blocoId: item.blocoId, ...item }));
+            return data.map(item => ({ patrimonioId: item.patrimonioId, ...item }));
         });
 };
 
@@ -123,7 +85,7 @@ const hideDialog = () => {
 };
 
 const saveProduct = () => {
-    const id = product.value.blocoId;
+    const id = product.value.patrimonioId;
 
     if (!id) {
         console.error('Product ID not found.');
@@ -133,7 +95,7 @@ const saveProduct = () => {
     // Log do JSON antes de enviar
     console.log('JSON to be sent:', product.value);
 
-    fetch(`https://localhost:7038/api/Bloco`, {
+    fetch(`https://localhost:7038/api/Patrimonio/`, {
         method: 'PUT', // ou 'PATCH' dependendo da sua API
         headers: {
             'Content-Type': 'application/json',
@@ -149,7 +111,7 @@ const saveProduct = () => {
         .then(updatedProduct => {
             // Atualizar localmente os dados após o sucesso da chamada à API
             nodes.value = nodes.value.map(item => {
-                if (item.blocoId === id) {
+                if (item.patrimonioId === id) {
                     return { ...item, ...updatedProduct };
                 }
                 return item;
@@ -180,8 +142,8 @@ const confirmDeleteProduct = (prod) => {
 
 const deleteProduct = () => {
     // Fazer uma chamada à API para desativar o item
-    const id = product.value.blocoId;
-    fetch(`https://localhost:7038/api/Bloco/${id}`, {
+    const id = product.value.patrimonioId;
+    fetch(`https://localhost:7038/api/Patrimonio/${id}`, {
         method: 'PUT', // ou 'PATCH' dependendo da sua API
         headers: {
             'Content-Type': 'application/json',
@@ -197,7 +159,7 @@ const deleteProduct = () => {
         .then(() => {
             // Atualizar localmente os dados após o sucesso da chamada à API
             nodes.value = nodes.value.map(item => {
-                if (item.blocoId === id) {
+                if (item.patrimonioId === id) {
                     return { ...item, ativo: false };
                 }
                 return item;
@@ -216,42 +178,57 @@ const deleteProduct = () => {
 
 
 const newProduct = ref({
-    nome: '',
-    ativo: true,
+  codigoBarra: '',
+  tipo: '',
+  nome: '',
+  valor: null,
+  notaFiscal: '',
+  ativo: true,
+  dataRegistro: new Date().toISOString(),
+  usuarioId: 0,
+  blocoId: 0,
 });
 
 const saveNewProduct = () => {
-    fetch('https://localhost:7038/api/Bloco', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            nome: newProduct.value.nome,
-            ativo: newProduct.value.ativo
-        }),
+  fetch('https://localhost:7038/api/Patrimonio', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      codigoBarra: newProduct.value.codigoBarra,
+      tipo: newProduct.value.tipo,
+      nome: newProduct.value.nome,
+      valor: newProduct.value.valor,
+      notaFiscal: newProduct.value.notaFiscal,
+      ativo: newProduct.value.ativo,
+      dataRegistro: newProduct.value.dataRegistro,
+      usuarioId: newProduct.value.usuarioId,
+      blocoId: newProduct.value.blocoId,
+      // Adicione outros campos conforme necessário
+    }),
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to create new product');
+      }
+      return response.json();
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to create new product');
-            }
-            return response.json();
-        })
-        .then(() => {
-            // Atualizar localmente os dados após o sucesso da chamada à API
-            reloadData();
-            console.log('New product created successfully');
-        })
-        .catch(error => {
-            console.error('Error creating new product:', error);
-        })
-        .finally(() => {
-            newProductDialog.value = false;
-        });
+    .then(() => {
+      // Atualizar localmente os dados após o sucesso da chamada à API
+      reloadData();
+      console.log('New product created successfully');
+    })
+    .catch(error => {
+      console.error('Error creating new product:', error);
+    })
+    .finally(() => {
+      newProductDialog.value = false;
+    });
 };
 
 const hideNewDialog = () => {
-    newProductDialog.value = false;
+  newProductDialog.value = false;
 };
 
 
